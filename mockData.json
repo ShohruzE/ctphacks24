@@ -1,0 +1,184 @@
+{
+  "clubs": [
+    {
+      "name": "Tech Innovators Club",
+      "description": "A community for students passionate about technology and innovation. We work on tech projects, attend hackathons, and host tech talks.",
+      "club_type": "Technology",
+      "media": {
+        "Instagram": "https://www.instagram.com/techinnovators",
+        "Website": "https://www.techinnovatorsclub.com"
+      }
+    },
+    {
+      "name": "Eco Warriors",
+      "description": "Dedicated to promoting environmental sustainability on campus. We organize clean-up drives, tree-planting events, and workshops on eco-friendly practices.",
+      "club_type": "Environment",
+      "media": {
+        "Instagram": "https://www.instagram.com/ecowarriors",
+        "Facebook": "https://www.facebook.com/ecowarriorsclub"
+      }
+    },
+    {
+      "name": "Creative Writing Society",
+      "description": "A club for aspiring writers to share their work, receive feedback, and participate in writing challenges. We also publish an annual literary magazine.",
+      "club_type": "Literature",
+      "media": {
+        "Instagram": "https://www.instagram.com/creativewritingsociety",
+        "Website": "https://www.creativewritingsociety.com"
+      }
+    },
+    {
+      "name": "Robotics Club",
+      "description": "For students interested in building robots and participating in robotics competitions. We work on various robotics projects throughout the year.",
+      "club_type": "Engineering",
+      "media": {
+        "Facebook": "https://www.facebook.com/roboticsclub",
+        "Website": "https://www.roboticsclub.com"
+      }
+    },
+    {
+      "name": "Film Appreciation Group",
+      "description": "A club for film enthusiasts who love watching, analyzing, and discussing movies. We screen a variety of films and hold discussions afterward.",
+      "club_type": "Film",
+      "media": {
+        "Instagram": "https://www.instagram.com/filmappreciationgroup",
+        "Website": "https://www.filmappreciationgroup.com"
+      }
+    },
+    {
+      "name": "Photography Club",
+      "description": "A place for budding photographers to hone their skills, share their work, and participate in photography challenges. We also organize photo walks and workshops.",
+      "club_type": "Arts",
+      "media": {
+        "Instagram": "https://www.instagram.com/photographyclub",
+        "Website": "https://www.photographyclub.com"
+      }
+    },
+    {
+      "name": "Chess Club",
+      "description": "A community for chess enthusiasts of all levels. We hold regular chess matches, tournaments, and strategy discussions.",
+      "club_type": "Games",
+      "media": {
+        "Facebook": "https://www.facebook.com/chessclub",
+        "Website": "https://www.chessclub.com"
+      }
+    },
+    {
+      "name": "Music Makers",
+      "description": "A club for musicians and music lovers to jam together, create music, and perform. We also organize open mic nights and music theory sessions.",
+      "club_type": "Music",
+      "media": {
+        "Instagram": "https://www.instagram.com/musicmakers",
+        "Facebook": "https://www.facebook.com/musicmakersclub"
+      }
+    },
+    {
+      "name": "Entrepreneurship Society",
+      "description": "For students interested in entrepreneurship. We host pitch competitions, workshops, and networking events with successful entrepreneurs.",
+      "club_type": "Business",
+      "media": {
+        "Instagram": "https://www.instagram.com/entrepreneurshipsociety",
+        "Website": "https://www.entrepreneurshipsociety.com"
+      }
+    },
+    {
+      "name": "Outdoor Adventure Club",
+      "description": "A club for outdoor enthusiasts. We organize hiking trips, camping weekends, and other outdoor activities to explore nature.",
+      "club_type": "Recreation",
+      "media": {
+        "Facebook": "https://www.facebook.com/outdooradventureclub",
+        "Website": "https://www.outdooradventureclub.com"
+      }
+    },
+    {
+      "name": "Dance Crew",
+      "description": "A dance club for students passionate about dance. We practice various dance styles and perform at college events.",
+      "club_type": "Performing Arts",
+      "media": {
+        "Instagram": "https://www.instagram.com/dancecrew",
+        "Facebook": "https://www.facebook.com/dancecrew"
+      }
+    },
+    {
+      "name": "Debate Society",
+      "description": "A platform for students to develop their debating skills. We hold debates on various topics and participate in intercollegiate competitions.",
+      "club_type": "Public Speaking",
+      "media": {
+        "Facebook": "https://www.facebook.com/debatesociety",
+        "Website": "https://www.debatesociety.com"
+      }
+    },
+    {
+      "name": "Anime & Manga Club",
+      "description": "A club for fans of anime and manga. We watch anime series, read manga, and discuss our favorite characters and storylines.",
+      "club_type": "Culture",
+      "media": {
+        "Instagram": "https://www.instagram.com/animeclub",
+        "Facebook": "https://www.facebook.com/animeclub"
+      }
+    },
+    {
+      "name": "Volunteering Network",
+      "description": "A club dedicated to community service. We organize volunteering opportunities and partner with local organizations to make a difference.",
+      "club_type": "Community Service",
+      "media": {
+        "Instagram": "https://www.instagram.com/volunteeringnetwork",
+        "Website": "https://www.volunteeringnetwork.com"
+      }
+    },
+    {
+      "name": "Cooking Club",
+      "description": "For students who love cooking and want to learn new recipes. We hold cooking sessions, share recipes, and occasionally hold bake sales.",
+      "club_type": "Culinary",
+      "media": {
+        "Instagram": "https://www.instagram.com/cookingclub",
+        "Facebook": "https://www.facebook.com/cookingclub"
+      }
+    },
+    {
+      "name": "Tabletop Gaming Guild",
+      "description": "A club for fans of board games, card games, and tabletop RPGs. We meet regularly to play a variety of games and explore new ones.",
+      "club_type": "Games",
+      "media": {
+        "Facebook": "https://www.facebook.com/tabletopgamingguild",
+        "Website": "https://www.tabletopgamingguild.com"
+      }
+    },
+    {
+      "name": "Language Exchange Club",
+      "description": "A club where students can practice and learn new languages through conversation and cultural exchange. We also host language-themed events.",
+      "club_type": "Culture",
+      "media": {
+        "Instagram": "https://www.instagram.com/languageexchangeclub",
+        "Website": "https://www.languageexchangeclub.com"
+      }
+    },
+    {
+      "name": "Gardening Club",
+      "description": "For students who enjoy gardening and want to contribute to the campus greenery. We maintain a garden on campus and host workshops on sustainable gardening.",
+      "club_type": "Environment",
+      "media": {
+        "Instagram": "https://www.instagram.com/gardeningclub",
+        "Facebook": "https://www.facebook.com/gardeningclub"
+      }
+    },
+    {
+      "name": "Social Media Marketing Club",
+      "description": "A club for students interested in digital marketing. We work on real-world projects, learn about social media strategies, and host guest speakers.",
+      "club_type": "Business",
+      "media": {
+        "Instagram": "https://www.instagram.com/socialmediaclub",
+        "Website": "https://www.socialmediaclub.com"
+      }
+    },
+    {
+      "name": "Yoga & Wellness Club",
+      "description": "A club focused on promoting mental and physical well-being through yoga sessions, meditation, and wellness workshops.",
+      "club_type": "Health & Wellness",
+      "media": {
+        "Instagram": "https://www.instagram.com/yogawellnessclub",
+        "Facebook": "https://www.facebook.com/yogawellnessclub"
+      }
+    }
+  ]
+}
