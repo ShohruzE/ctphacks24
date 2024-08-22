@@ -12,17 +12,23 @@ if all_club_sections:
 
     # Dictionary to hold all club information
     club_data = {}
-
+    section_number = 0 
+    number_of_clubs = 0
     # Iterate over each section name
-    for section in all_club_sections.findAll(["button", "h4"]):
+    club_section_length =  len(all_club_sections.findAll("button"))
+    for idx, section in enumerate(all_club_sections.findAll("button")):
+        if idx == club_section_length-1 or idx== club_section_length-2:
+            break
         section_name = section.get_text(strip=True)
         section_clubs = []
-        
+        section_number+=1 
         # Collect all content and split by <hr> tags
-        content = str(all_club_sections)
+        section_info = all_club_sections.find("div", attrs={"id": f"accordion-panel-2-{idx+1}"})
+        content = str(section_info)
         segments = content.split('<hr/>')
         # Find all club entries within this section
         for idx, club_segment in enumerate(segments):
+            number_of_clubs+=1
             if(idx == len(segments)-1):
                 break
             segment_soup = BeautifulSoup(club_segment, 'html.parser')
@@ -56,10 +62,10 @@ if all_club_sections:
 
     print("Final club data:")
     # print(json.dumps(club_data, indent = 4))
-    open('hunter_clubs.json', 'w').close()
-    with open("hunter_clubs.json", "w") as outfile: 
+    open('../club_json_files/hunter_clubs.json', 'w').close()
+    with open("../club_json_files/hunter_clubs.json", "w") as outfile: 
         json.dump(club_data, outfile)
-
+    print(section_number, number_of_clubs)
 else:
     print("No club sections found.")
 
