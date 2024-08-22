@@ -7,7 +7,7 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDV3Jz2dSqwwBrI3sRW1jaRa3sQhv5u9_g",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "club-finder-90824.firebaseapp.com",
   projectId: "club-finder-90824",
   storageBucket: "club-finder-90824.appspot.com",
