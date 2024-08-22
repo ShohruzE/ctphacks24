@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState} from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {useRouter} from "next/navigation"
 import {
   Form,
   FormControl,
@@ -37,10 +38,10 @@ export default function GenerateClubsForm() {
       interests: "",
     },
   });
+  const router = useRouter(); // Correctly initialize the router
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     const { interests } = values;
-
     try {
       const response = await fetch("/api/create", {
         method: "POST",
@@ -50,11 +51,17 @@ export default function GenerateClubsForm() {
         body: JSON.stringify({ interests }),
       });
       const data = await response.json();
-      console.log(data);
+
+      if (data) {
+        console.log(data);
+        router.push('/recommendation'); // Correctly use router.push
+      }
+
     } catch (error) {
       console.error(error);
     }
   };
+
 
   return (
     <Form {...form}>
