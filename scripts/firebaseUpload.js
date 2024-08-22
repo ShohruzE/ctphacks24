@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import { db } from '../src/firebase.js';
 import { collection, addDoc } from 'firebase/firestore';
 
-const data = JSON.parse(readFileSync('mockData.json', 'utf-8'));
+const data = JSON.parse(readFileSync('club_json_files/hunter_clubs.json', 'utf-8'));
 
 async function uploadData() {
   try {

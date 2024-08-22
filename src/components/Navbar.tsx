@@ -14,15 +14,23 @@ export default function Navbar() {
           </div>
           <div className="flex flex-row items-center gap-8">
             <ul className="flex items-center gap-8">
-              {/* <li>
+              <li>
                 <Link
                   className="hover:text-slate-400 font-bold"
-                  href="/pricing"
+                  href="/create"
                 >
-                  Pricing
+                  Create
                 </Link>
               </li>
               <li>
+                <Link
+                  className="hover:text-slate-400 font-bold"
+                  href="/profile"
+                >
+                  View Profile
+                </Link>
+              </li>
+              {/* <li>
                 <Link
                   className="hover:text-slate-400 font-bold"
                   href="/explore"
