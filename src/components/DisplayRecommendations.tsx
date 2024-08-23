@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -12,7 +12,10 @@ import {
 import { useParams } from "next/navigation";
 
 const DisplayRecommendations = () => {
+  const [clubs, setClubs] = useState([]);
   const { userId } = useParams();
+
+  useEffect(() => {});
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen min-w-full">
