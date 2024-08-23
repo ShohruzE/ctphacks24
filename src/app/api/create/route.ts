@@ -3,8 +3,11 @@ import OpenAI from "openai";
 import { z } from "zod";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { Pinecone } from "@pinecone-database/pinecone";
+import { db } from "../../../firebase.js";
+import { collection, doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { getAuth } from "@clerk/nextjs/server";
 
-const systemPrompt = `You are a chatbot designed to help users find the most suitable clubs to join based on their personal interests, background, and academic goals. Users will fill out a form or quiz that provides details such as their interests, gender, religious and cultural preferences, hobbies, intended major, and graduation year. Using this information, you will generate embeddings and perform a similarity search using Pinecone to retrieve the top 3 clubs from the vector database.
+const systemPrompt = `You are an assistant designed to help users find the most suitable clubs to join based on their personal interests, background, and academic goals. Users will fill out a form or quiz that provides details such as their interests, gender, religious and cultural preferences, hobbies, intended major, and graduation year. Using this information, you will generate embeddings and perform a similarity search using Pinecone to retrieve the top 3 clubs from the vector database.
 
 Task Breakdown:
 
@@ -17,7 +20,6 @@ Cultural Interests: Clubs that align with their cultural background or interests
 Hobbies: Specific hobbies that might match with club offerings.
 Intended Major: Academic focus that could align with academic or professional clubs.
 Graduation Year: To consider clubs that might have longer or shorter commitments based on their graduation timeline.
-Embedding and Similarity Search:
 
 Structured Response:
 Return the top 3 most relevant clubs in a structured JSON format based on the following schema:
@@ -25,10 +27,10 @@ Name: The club’s name.
 Type: The category of the club (e.g., Technology, Arts, Sports).
 Description: A brief summary of what the club is about.
 Media: An array of social media and online presence links.
+Email: Optional contact email for the club.
 Instagram: Optional URL to the club's Instagram.
 Facebook: Optional URL to the club's Facebook.
 Website: Optional URL to the club's official website.
-Twitter: Optional URL to the club's Twitter.
 LinkedIn: Optional URL to the club's LinkedIn.
 Linktree: Optional URL to a Linktree or similar resource.
 Recommendation: A personalized explanation of why the user should consider joining this club, based on the alignment between their profile and the club’s profile.
@@ -89,10 +91,10 @@ const pinecone = new Pinecone({
 });
 
 const mediaSchema = z.object({
+  email: z.string().optional(),
   instagram: z.string().optional(),
   facebook: z.string().optional(),
   website: z.string().optional(),
-  twitter: z.string().optional(),
   linkedin: z.string().optional(),
   linktree: z.string().optional(),
 });
@@ -109,11 +111,23 @@ const clubsSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  const { interests } = await req.json();
+  const auth = getAuth(req);
+  const userId = auth.userId;
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { gender, clubType, religion, interests } = await req.json();
+
+  const embeddingInput = `User Profile:
+    Gender: ${gender}
+    Club Type: ${clubType.join(", ")}
+    Religion: ${religion.join(", ")}
+    Interests: ${interests}`;
 
   const embeddings = await openai.embeddings.create({
     model: "text-embedding-3-small",
-    input: interests, // TODO: CHANGE WHEN FORM DETAILS ARE FINALIZED
+    input: embeddingInput, // TODO: CHANGE WHEN FORM DETAILS ARE FINALIZED
     encoding_format: "float",
   });
 
@@ -124,7 +138,12 @@ export async function POST(req: NextRequest) {
     includeMetadata: true,
     vector: embeddings.data[0].embedding,
     // TODO: ADD METADATA FILTERS TO OPTIMIZE SIMILARITY SEARCH
+    filter: {
+      club_type: { $in: clubType },
+    },
   });
+
+  // return new NextResponse(JSON.stringify(results.matches));
 
   const inputString = `Based on the interests provided, here are some clubs that might be of interest:
   ${results.matches
@@ -148,16 +167,30 @@ export async function POST(req: NextRequest) {
   //return new NextResponse(JSON.stringify(input));
   //   const testInput =
   //     "What are some clubs similar to the Hunter College Computer Science Club?";
+  try {
+    const completion = await openai.beta.chat.completions.parse({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: inputString },
+      ],
+      response_format: zodResponseFormat(clubsSchema, "clubs"),
+    });
+    const clubs = completion.choices[0].message.parsed;
 
-  const completion = await openai.beta.chat.completions.parse({
-    model: "gpt-4o-mini",
-    messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: inputString },
-    ],
-    response_format: zodResponseFormat(clubsSchema, "clubs"),
-  });
-  const clubs = completion.choices[0].message.parsed;
+    console.log(clubs?.clubs);
 
-  return new NextResponse(JSON.stringify(clubs));
+    await setDoc(doc(db, "users", userId), {
+      userId: userId,
+      clubs: clubs?.clubs,
+      createdAt: serverTimestamp(),
+    });
+
+    return NextResponse.json({
+      message: "Reccomendations added successfully!",
+    });
+  } catch (error: Error | any) {
+    console.error(error);
+    return new NextResponse(JSON.stringify({ error: error.message }));
+  }
 }
