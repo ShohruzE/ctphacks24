@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button"
 import {
   Carousel,
   CarouselContent,
@@ -15,7 +16,7 @@ const DisplayRecommendations = () => {
   const [clubs, setClubs] = useState([]);
   const { userId } = useParams();
 
-  useEffect(() => {});
+  useEffect(() => { });
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen min-w-full">
@@ -81,7 +82,7 @@ const DisplayRecommendations = () => {
           <CarouselNext />
         </Carousel>
       </div>
-    </div>
+    </div >
   );
 };
 
