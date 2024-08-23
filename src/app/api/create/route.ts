@@ -143,6 +143,8 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  console.log(results.matches);
+
   // return new NextResponse(JSON.stringify(results.matches));
 
   const inputString = `Based on the interests provided, here are some clubs that might be of interest:
@@ -177,8 +179,6 @@ export async function POST(req: NextRequest) {
       response_format: zodResponseFormat(clubsSchema, "clubs"),
     });
     const clubs = completion.choices[0].message.parsed;
-
-    console.log(clubs?.clubs);
 
     await setDoc(doc(db, "users", userId), {
       userId: userId,

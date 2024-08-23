@@ -10,12 +10,28 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useParams } from "next/navigation";
+import { db } from "@/firebase";
+import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 
 const DisplayRecommendations = () => {
   const [clubs, setClubs] = useState([]);
-  const { userId } = useParams();
+  const { userId }: { userId: string } = useParams();
 
-  useEffect(() => {});
+  useEffect(() => {
+    const getClubs = async () => {
+      const docRef = doc(db, "users", userId);
+      console.log(docRef);
+      const docSnap = await getDoc(docRef);
+      console.log(docSnap);
+      if (docSnap.exists()) {
+        setClubs(docSnap.data().clubs);
+      } else {
+        console.log("No such document!");
+      }
+      console.log(clubs);
+    };
+    getClubs();
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen min-w-full">
