@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -69,7 +70,7 @@ const formSchema = z.object({
 export default function GenerateClubsForm() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-
+  const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -95,8 +96,13 @@ export default function GenerateClubsForm() {
         body: JSON.stringify({ interests }),
       });
       const data = await response.json();
+
       console.log(data);
       setLoading(false);
+      const queryParams = new URLSearchParams({ data: JSON.stringify(data) }).toString();
+      const URL = `/recommendation?${queryParams}`
+      console.log(URL)
+      router.push(URL)
     } catch (error) {
       console.error(error);
     }
