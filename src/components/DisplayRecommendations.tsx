@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button"
 import {
   Carousel,
   CarouselContent,
@@ -16,6 +17,7 @@ import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 const DisplayRecommendations = () => {
   const [clubs, setClubs] = useState([]);
   const { userId }: { userId: string } = useParams();
+
 
   useEffect(() => {
     const getClubs = async () => {
@@ -32,6 +34,8 @@ const DisplayRecommendations = () => {
     };
     getClubs();
   }, []);
+
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen min-w-full">
@@ -97,7 +101,7 @@ const DisplayRecommendations = () => {
           <CarouselNext />
         </Carousel>
       </div>
-    </div>
+    </div >
   );
 };
 

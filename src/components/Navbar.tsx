@@ -30,6 +30,14 @@ export default function Navbar() {
                   View Profile
                 </Link>
               </li>
+              <li>
+                <Link
+                  className="hover:text-slate-400 font-bold"
+                  href="/clubDirectory"
+                >
+                  View Clubs
+                </Link>
+              </li>
               {/* <li>
                 <Link
                   className="hover:text-slate-400 font-bold"
