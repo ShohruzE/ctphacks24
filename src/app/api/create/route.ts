@@ -4,14 +4,7 @@ import { z } from "zod";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { db } from "../../../firebase.js";
-import {
-  collection,
-  addDoc,
-  query,
-  where,
-  getDocs,
-  serverTimestamp,
-} from "firebase/firestore";
+import { collection, doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { getAuth } from "@clerk/nextjs/server";
 
 const systemPrompt = `You are an assistant designed to help users find the most suitable clubs to join based on their personal interests, background, and academic goals. Users will fill out a form or quiz that provides details such as their interests, gender, religious and cultural preferences, hobbies, intended major, and graduation year. Using this information, you will generate embeddings and perform a similarity search using Pinecone to retrieve the top 3 clubs from the vector database.
@@ -34,6 +27,7 @@ Name: The club’s name.
 Type: The category of the club (e.g., Technology, Arts, Sports).
 Description: A brief summary of what the club is about.
 Media: An array of social media and online presence links.
+Email: Optional contact email for the club.
 Instagram: Optional URL to the club's Instagram.
 Facebook: Optional URL to the club's Facebook.
 Website: Optional URL to the club's official website.
@@ -97,10 +91,10 @@ const pinecone = new Pinecone({
 });
 
 const mediaSchema = z.object({
+  email: z.string().optional(),
   instagram: z.string().optional(),
   facebook: z.string().optional(),
   website: z.string().optional(),
-  twitter: z.string().optional(),
   linkedin: z.string().optional(),
   linktree: z.string().optional(),
 });
@@ -186,7 +180,7 @@ export async function POST(req: NextRequest) {
 
     console.log(clubs?.clubs);
 
-    await addDoc(collection(db, "users"), {
+    await setDoc(doc(db, "users", userId), {
       userId: userId,
       clubs: clubs?.clubs,
       createdAt: serverTimestamp(),
