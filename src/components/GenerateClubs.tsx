@@ -79,3 +79,5 @@ export default function GenerateClubs() {
         </div>
     );
 }
+
+export type { ClubProfileProps };

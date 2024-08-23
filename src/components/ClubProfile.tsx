@@ -3,22 +3,21 @@
 import { db } from "@/firebase";
 import { getDocs, doc, updateDoc, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
-
-interface ClubProfileProps {
-    club_name: string;
-    club_description: string;
-    club_links: string[];
-}
+import { useUser } from "@clerk/nextjs";
+import { ClubProfileProps } from "./GenerateClubs";
 
 export default function ClubProfile() {
     const [clubName, setClubName] = useState("");
     const [description, setDescription] = useState("");
-    const [media, setMedia] = useState([""]);
-    const [allAttributes, setAllAttributes] = useState({});
+    const [media, setMedia] = useState<{ [key: string]: string }>({});
+    const [allAttributes, setAllAttributes] = useState<ClubProfileProps | null>(null);
+
+    const { user } = useUser();
+    const userEmail = user?.primaryEmailAddress?.emailAddress;
 
     const clubRef = collection(db, "clubs");
 
-    const editClubProfile = async (clubName: string, description: string, media: string[]) => {
+    const editClubProfile = async (clubName: string, description: string, media: { [key: string]: string }) => {
         const clubDocRef = doc(db, "clubs", clubName);
         await updateDoc(clubDocRef, {
             club_description: description,
@@ -31,49 +30,39 @@ export default function ClubProfile() {
             try {
                 const querySnapshot = await getDocs(clubRef);
                 querySnapshot.forEach((doc) => {
-                    setClubName(doc.data().club_name);
-                    setDescription(doc.data().club_description);
-                    setMedia(doc.data().club_links);
-                    setAllAttributes(doc.data());
-                    console.log(doc.data());
+                    const data = doc.data() as ClubProfileProps;
+                    if (data.club_links.email === userEmail) {
+                        setClubName(data.club_name);
+                        setDescription(data.club_description);
+                        setMedia(data.club_links);
+                        setAllAttributes(data);
+                    }
                 });
             } catch (error) {
                 console.error("Error fetching club profile: ", error);
             }
         };
         getClubProfile();
-    }, []);
+    }, [userEmail]);
+
+    if (!allAttributes) {
+        return <div>No matching club found for the signed-in user's email.</div>;
+    }
 
     return (
         <div>
             <h1>Club Profile</h1>
-            <div>
-                <p>Club Name:</p>
-                <p>{clubName}</p>
-                {/* <label>
-                    Club Name:
-                    <input
-                        type="text"
-                        value={clubName}
-                        onChange={(e) => setClubName(e.target.value)}
-                    />
-                </label> */}
-            </div>
-            <div>
-                <p>Description:</p>
-                <p>{description}</p>
-                {/* <label>
-                    Description:
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </label> */}
-            </div>
-            <div>
-                <p>Media:</p>
-            
-            </div>
+            <h2>{clubName}</h2>
+            <p>{description}</p>
+            <ul>
+                {Object.keys(media).map((key) => (
+                    <li key={key}>
+                        <a href={media[key]} target="_blank">
+                            {key.charAt(0).toUpperCase() + key.slice(1)}: {media[key]}
+                        </a>
+                    </li>
+                ))}
+            </ul>
             <button onClick={() => editClubProfile(clubName, description, media)}>
                 Update Club Info
             </button>
