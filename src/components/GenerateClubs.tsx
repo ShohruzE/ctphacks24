@@ -68,7 +68,7 @@ export default function GenerateClubs() {
     <div className="flex flex-col justify-center items-center">
       {Object.keys(clubsByType).map((type) => (
         <div key={type} className="py-16">
-          <div className="flex flex-row flex-wrap gap-8">
+          <div className="flex flex-row flex-wrap justify-center gap-8">
             {clubsByType[type].map((club, index) => (
               <Card
                 key={index}
