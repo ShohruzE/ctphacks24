@@ -27,10 +27,17 @@ export default function userProfile() {
          console.error("Error fetching clubs:", error);
       }
    };
+   // Log clubs whenever it updates
    useEffect(() => {
-      getClubs()
+      console.log("Updated Clubs State:", clubs);
+   }, [clubs]);
 
-   }, [])
+   // Call getClubs inside useEffect
+   useEffect(() => {
+      if (userId) {
+         getClubs();
+      }
+   }, [userId]);
    return (
       <div className="flex">
          <div className="flex-column justify-items-center">
