@@ -15,7 +15,9 @@ import { db } from "@/firebase";
 import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 
 const DisplayRecommendations = () => {
-  const [clubs, setClubs] = useState<{ name: string; type: string }[]>([]);
+  const [clubs, setClubs] = useState<
+    { name: string; recommendation: string }[]
+  >([]);
   const { userId }: { userId: string } = useParams();
 
   const getClubs = async () => {
@@ -51,12 +53,12 @@ const DisplayRecommendations = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen min-w-full gap-6">
       <div className="flex flex-col items-center w-full max-w-4xl gap-2">
-        <h1 className="text-3xl font-bold mt-5">Club Recommendations</h1>
+        <h1 className="text-3xl font-bold mt-12">Club Recommendations</h1>
         <p className="mb-4 text-sm font-bold">
           Based on your answers, we think these clubs would be a perfect fit for
           you!
         </p>
-        <Carousel className="max-w-md">
+        <Carousel className="max-w-xl">
           <CarouselPrevious />
           <CarouselContent className="flex justify-around">
             {clubs.map((club, index) => (
@@ -65,13 +67,15 @@ const DisplayRecommendations = () => {
                 className="flex justify-center min-w-full"
               >
                 <div className="p-4">
-                  <Card className="h-40 overflow-scroll scrollbar-hide">
+                  <Card className="h-full overflow-scroll scrollbar-hide">
                     <CardContent className="flex flex-col items-center justify-center p-6 gap-6 h-full">
                       <span className="text-2xl font-semibold text-center">
                         {club.name}
                       </span>
                       <div className="">
-                        <p className="text-center line-clamp-5">{club.type}</p>
+                        <p className="text-center line-clamp-5">
+                          {club.recommendation}
+                        </p>
                       </div>
                       <Button type="submit" className="mt-auto">
                         Click here for more information
@@ -81,10 +85,8 @@ const DisplayRecommendations = () => {
                 </div>
               </CarouselItem>
             ))}
-
           </CarouselContent>
           <CarouselNext />
-
         </Carousel>
       </div>
       <div className="flex flex-col">
@@ -100,7 +102,7 @@ const DisplayRecommendations = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl mb-4 ">
           <Card className="flex ">
-            <CardContent className="flex flex-col  items-start justify-start p-6 gap-2">
+            <CardContent className="flex flex-col  items-start justify-start p-6 gap-6">
               <h2 className="text-2xl font-semibold">Club Registration</h2>
               <p>
                 The Office of Student Activities and Leadership Development is
@@ -118,8 +120,8 @@ const DisplayRecommendations = () => {
               </div>
             </CardContent>
           </Card>
-          <Card className="flex ">
-            <CardContent className="flex flex-col items-start justify-start p-6 gap-2">
+          <Card className="flex">
+            <CardContent className="flex flex-col items-start justify-start p-6 gap-6">
               <h2 className="text-2xl font-semibold">Club Fundraising</h2>
               <p>
                 Student organizations are no longer allowed to collect funds,
@@ -137,7 +139,7 @@ const DisplayRecommendations = () => {
             </CardContent>
           </Card>
           <Card className="flex ">
-            <CardContent className="flex flex-col items-start justify-start p-6 gap-2 space-x-*">
+            <CardContent className="flex flex-col items-start justify-start p-6 gap-6">
               <h2 className="text-2xl font-semibold">Check Club Status</h2>
               <p>
                 If your club has not completed registration, be sure to follow
@@ -157,7 +159,7 @@ const DisplayRecommendations = () => {
             </CardContent>
           </Card>
           <Card className="flex ">
-            <CardContent className="flex flex-col items-start justify-start p-6 gap-2">
+            <CardContent className="flex flex-col items-start justify-start p-6 gap-6">
               <h2 className="text-2xl font-semibold">Request a budget</h2>
               <p>
                 If you have a budget question contact College Association at
@@ -175,7 +177,7 @@ const DisplayRecommendations = () => {
             </CardContent>
           </Card>
           <Card className="flex ">
-            <CardContent className="flex flex-col items-start justify-start p-6 gap-2">
+            <CardContent className="flex flex-col items-start justify-start p-6 gap-6">
               <h2 className="text-2xl font-semibold">Promote a Club</h2>
               <p>
                 Chartered clubs, organizations or publications can arrange for
@@ -196,7 +198,7 @@ const DisplayRecommendations = () => {
             </CardContent>
           </Card>
           <Card className="flex ">
-            <CardContent className="flex flex-col items-start justify-start p-6 gap-2">
+            <CardContent className="flex flex-col items-start justify-start p-6 gap-6">
               <h2 className="text-2xl font-semibold">Plan an Event or Trip</h2>
               <p>
                 The Office of Student Activities now has an electronic event
