@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { currentUser, auth } from "@clerk/nextjs/server";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const { userId }: { userId: string | null } = auth();
+
   return (
     <header className="bg-black text-white py-8">
       <div className="px-10">
@@ -17,9 +20,9 @@ export default function Navbar() {
               <li>
                 <Link
                   className="hover:text-slate-400 font-bold"
-                  href="/create"
+                  href="/clubDirectory"
                 >
-                  Create
+                  View Clubs
                 </Link>
               </li>
               <li>
@@ -32,10 +35,10 @@ export default function Navbar() {
               </li>
               <li>
                 <Link
-                  className="hover:text-slate-400 font-bold"
-                  href="/clubDirectory"
+                  className="font-bold bg-purple-800 rounded-md py-2 px-3 hover:bg-purple-600"
+                  href="/create"
                 >
-                  View Clubs
+                  Create
                 </Link>
               </li>
               {/* <li>
