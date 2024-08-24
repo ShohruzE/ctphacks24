@@ -81,8 +81,10 @@ const DisplayRecommendations = () => {
                 </div>
               </CarouselItem>
             ))}
+
           </CarouselContent>
           <CarouselNext />
+
         </Carousel>
       </div>
       <div className="flex flex-col">
