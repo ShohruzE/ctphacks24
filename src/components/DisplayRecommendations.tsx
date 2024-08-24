@@ -13,12 +13,20 @@ import {
 import { useParams } from "next/navigation";
 import { db } from "@/firebase";
 import { doc, getDoc, getDocs, collection } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+
+interface Club {
+  id: string;
+  name: string;
+  recommendation: string;
+}
 
 const DisplayRecommendations = () => {
   const [clubs, setClubs] = useState<
     { name: string; recommendation: string }[]
   >([]);
   const { userId }: { userId: string } = useParams();
+  const router = useRouter();
 
   const getClubs = async () => {
     try {
@@ -77,7 +85,10 @@ const DisplayRecommendations = () => {
                           {club.recommendation}
                         </p>
                       </div>
-                      <Button type="submit" className="mt-auto">
+                      <Button
+                        onClick={() => router.push(`/clubDirectory`)}
+                        className="mt-auto"
+                      >
                         Click here for more information
                       </Button>
                     </CardContent>
