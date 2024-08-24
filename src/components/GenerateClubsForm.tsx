@@ -154,7 +154,7 @@ export default function GenerateClubsForm() {
       const data = await response.json();
       console.log(data);
       setLoading(false);
-      // router.push(`/recommendation/${userId}`);
+      router.push(`/recommendation/${userId}`);
     } catch (error) {
       console.error(error);
     }
