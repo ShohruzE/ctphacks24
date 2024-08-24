@@ -2,44 +2,15 @@
 // include componenet imports
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar"
-import { useEffect, useState } from "react";
-import { useAuth } from "@clerk/nextjs";
-import { db } from "@/firebase";
-import { doc, getDoc, getDocs, collection } from "firebase/firestore";
+import UserProfile from "@/components/UserProfile";
+
 
 export default function userProfile() {
-   const { userId } = useAuth();
-   const [clubs, setClubs] = useState()
-   const getClubs = async () => {
-      try {
-         const docRef = doc(db, "users", userId);
-         console.log("Document Reference:", docRef);
 
-         const docSnap = await getDoc(docRef);
-         if (docSnap.exists()) {
-            const clubsData = docSnap.data().clubs;
-            setClubs(clubsData);
-            console.log("Clubs Data:", clubsData);
-         } else {
-            console.log("No such document!");
-         }
-      } catch (error) {
-         console.error("Error fetching clubs:", error);
-      }
-   };
-   // Log clubs whenever it updates
-   useEffect(() => {
-      console.log("Updated Clubs State:", clubs);
-   }, [clubs]);
-
-   // Call getClubs inside useEffect
-   useEffect(() => {
-      if (userId) {
-         getClubs();
-      }
-   }, [userId]);
    return (
-      <></>
+      <div className="min-h-screen">
+         <UserProfile />
+      </div>
    );
 }
 // <div className="flex">
