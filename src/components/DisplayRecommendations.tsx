@@ -103,7 +103,7 @@ const DisplayRecommendations = () => {
       <div className="flex flex-col">
         <div className="flex flex-col items-center w-full max-w-4xl gap-2 mt-5">
           <h1 className="text-2xl font-bold text-center">
-            Didn't find a club you like?
+            Didn&apos;t find a club you like?
             <br />
             Make your own!
           </h1>
