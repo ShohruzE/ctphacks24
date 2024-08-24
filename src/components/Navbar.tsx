@@ -12,7 +12,7 @@ export default async function Navbar() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="font-extrabold text-2xl hover:text-slate-400">
-              <Link href="/">ClubFinder</Link>
+              <Link href="/">ClubScout</Link>
             </h1>
           </div>
           <div className="flex flex-row items-center gap-8">
