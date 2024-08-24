@@ -28,7 +28,7 @@ export default async function Navbar() {
               <li>
                 <Link
                   className="hover:text-slate-400 font-bold"
-                  href={`/profile/${userId}`}
+                  href="/userProfile"
                 >
                   View Profile
                 </Link>
