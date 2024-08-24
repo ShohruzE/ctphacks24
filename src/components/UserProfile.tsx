@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent } from "@/components/ui/card";
-
+import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import { db } from "@/firebase";
 import { doc, getDoc, getDocs, collection } from "firebase/firestore";
@@ -74,9 +74,15 @@ export default function UserProfile() {
                     {club.recommendation}
                   </p>
                 </div>
-                <Button type="submit" className="mt-auto">
-                  Click here for more information
-                </Button>
+                <Link
+                  className="hover:text-slate-400 font-bold"
+                  href="/clubDirectory"
+                >
+                  <Button type="submit" className="mt-auto">
+                    Click here for more information
+                  </Button>
+                </Link>
+
               </CardContent>
             </Card>)
         })}
