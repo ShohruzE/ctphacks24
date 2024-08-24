@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="font-extrabold text-2xl hover:text-slate-400">
-              ClubFinder
+              ClubScout
             </h1>
           </div>
           <div className="">
